@@ -1,0 +1,3 @@
+Si quelqu'un est trouvé dans une pièce avec une arme à un certain moment, alors cette personne est un suspect.
+Si une personne a un mobile, alors cette personne est un suspect.
+Si une personne était dans une pièce au moment du meurtre, alors cette personne est un suspect.

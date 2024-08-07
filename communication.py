@@ -25,6 +25,7 @@ class RandomInteraction:
                 break
     
     def text_interaction(self, input_filepath, output_filepath):
+        speak("Vous")
         with open(input_filepath, 'r') as infile, open(output_filepath, 'w') as outfile:
             user_input = infile.readline().strip()
             if user_input:
@@ -35,6 +36,7 @@ class RandomInteraction:
     
     def terminal_interaction(self):
         user_input = input("Vous: ")
+        speak("Vous")
         response = self.agent.process_input(user_input)
         print("Agent: " + response)
         speak(response)
