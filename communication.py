@@ -20,12 +20,12 @@ class RandomInteraction:
             elif mode == 'speech':
                 self.speech_interaction()
 
-            input_text = input("Appuyez sur Entrée pour continuer ou tapez 'exit' pour quitter.")
+            input_text = input()
             if input_text.lower() == 'exit':
                 break
     
     def text_interaction(self, input_filepath, output_filepath):
-        speak("Vous")
+        speak("Question de l'agent")
         with open(input_filepath, 'r') as infile, open(output_filepath, 'w') as outfile:
             user_input = infile.readline().strip()
             if user_input:
@@ -35,16 +35,16 @@ class RandomInteraction:
                 speak(response)
     
     def terminal_interaction(self):
-        user_input = input("Vous: ")
-        speak("Vous")
+        speak("Question de l'agent")
+        user_input = input()
         response = self.agent.process_input(user_input)
         print("Agent: " + response)
         speak(response)
     
     def speech_interaction(self):
         with sr.Microphone() as source:
+            speak("Question de l'agent")
             print("Parlez...")
-            speak("Parlez...")
             audio = self.recognizer.listen(source)
             try:
                 user_input = self.recognizer.recognize_google(audio, language="fr-FR")
