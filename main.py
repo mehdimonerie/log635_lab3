@@ -22,12 +22,12 @@ def main():
     
 
 
-    # victime = inference_engine.get_victim()
-    # print(f"Victime déduite : {victime}")
-    # piece_du_crime = inference_engine.get_crime_room()
-    # print(f"Pièce du crime déduite : {piece_du_crime}")
-    # arme_du_crime = inference_engine.get_crime_weapon()
-    # print(f"Arme du crime déduite : {arme_du_crime}")
+    victime = inference_engine.get_victim()
+    print(f"Victime déduite : {victime}")
+    piece_du_crime = inference_engine.get_crime_room()
+    print(f"Pièce du crime déduite : {piece_du_crime}")
+    arme_du_crime = inference_engine.get_crime_weapon()
+    print(f"Arme du crime déduite : {arme_du_crime}")
 
     # Initialiser l'agent
     agent = Agent(inference_engine)

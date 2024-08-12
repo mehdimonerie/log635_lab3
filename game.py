@@ -5,9 +5,9 @@ import random
 
 def generate_virtual_board():
     # Listes des éléments de jeu
-    pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
+    pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
     personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
-    armes = ["couteau", "chandelier", "revolver", "corde", "poison", "matraque"]
+    armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
 
     # Mélanger les listes pour obtenir des éléments aléatoires
     random.shuffle(pieces)
