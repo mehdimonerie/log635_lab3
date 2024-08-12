@@ -1,7 +1,7 @@
 import json
 from aima.logic import *
 # Permet d'inferer qui est le meurtrier, quand, comment, où il a tué.
-class CrimeInference:
+class InferenceEngine:
 
     def __init__(self, facts, rules):
         with open('data/state_board.json', 'r') as file:
