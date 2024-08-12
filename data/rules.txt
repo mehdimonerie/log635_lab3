@@ -1,3 +1,8 @@
 Si quelqu'un est trouvé dans une pièce avec une arme à un certain moment, alors cette personne est un suspect.
 Si une personne a un mobile, alors cette personne est un suspect.
 Si une personne était dans une pièce au moment du meurtre, alors cette personne est un suspect.
+Pour étrangler une personne, il faut une corde
+Pour poignarder une personne, il faut un couteau
+On trouve des couteaux dans les cuisines
+On peut tuer une personne avec du poison
+Dans les salles de bain, il y a du poison

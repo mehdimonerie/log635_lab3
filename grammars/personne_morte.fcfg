@@ -1,0 +1,20 @@
+%start S
+
+S[SEM=<EstMort(?vp)>] -> VP[SEM=?vp]
+VP[SEM=?n] -> N[SEM=?n] V AD
+N[SEM=?np] -> Nprop[SEM=?np]
+V -> 'est'
+AD -> 'mort' | 'morte'
+
+Nprop[SEM=<Colonel Moutarde>] -> 'Colonel Moutarde'
+Nprop[SEM=<Moutarde>] -> 'Colonel Moutarde'
+Nprop[SEM=<Mademoiselle Rose>] -> 'Mademoiselle Rose'
+Nprop[SEM=<Rose>] -> 'Mademoiselle Rose'
+Nprop[SEM=<Professeur Violet>] -> 'Professeur Violet'
+Nprop[SEM=<Violet>] -> 'Professeur Violet'
+Nprop[SEM=<Monsieur Olive>] -> 'Monsieur Olive'
+Nprop[SEM=<Olive>] -> 'Monsieur Olive'
+Nprop[SEM=<Madame Leblanc>] -> 'Madame Leblanc'
+Nprop[SEM=<Leblanc>] -> 'Madame Leblanc'
+Nprop[SEM=<Madame Pervenche>] -> 'Madame Pervenche'
+Nprop[SEM=<Pervenche>] -> 'Madame Pervenche'
