@@ -1,12 +1,12 @@
 {
     "salle_depart": "bibliothèque",
-    "coupable": "Leblanc",
-    "victime": "Pervenche",
+    "coupable": "Rose",
+    "victime": "Moutarde",
     "arme_crime": "corde",
     "salle_meurtre": "toilette",
     "pieces": {
         "bibliothèque": {
-            "personnage": "Moutarde",
+            "personnage": "Pervenche",
             "arme": "chandelier",
             "nord": null,
             "sud": "bureau",
@@ -15,40 +15,40 @@
         },
         "bureau": {
             "personnage": "Olive",
-            "arme": "corde",
+            "arme": "stylet",
             "nord": "bibliothèque",
             "sud": null,
-            "est": "cuisine",
+            "est": "salon",
             "ouest": null
         },
-        "cuisine": {
+        "salon": {
             "personnage": "Leblanc",
-            "arme": null,
+            "arme": "couteau",
             "nord": null,
-            "sud": "salon",
+            "sud": "toilette",
             "est": null,
             "ouest": "bureau"
         },
-        "salon": {
-            "personnage": "Rose",
-            "arme": "stylet",
-            "nord": "cuisine",
-            "sud": null,
-            "est": "toilette",
-            "ouest": null
-        },
         "toilette": {
-            "personnage": "Pervenche",
+            "personnage": "Moutarde",
             "arme": "corde",
-            "nord": null,
-            "sud": "garage",
-            "est": null,
-            "ouest": "salon"
+            "nord": "salon",
+            "sud": null,
+            "est": "garage",
+            "ouest": null
         },
         "garage": {
             "personnage": "Violet",
+            "arme": "corde",
+            "nord": null,
+            "sud": "cuisine",
+            "est": null,
+            "ouest": "toilette"
+        },
+        "cuisine": {
+            "personnage": "Rose",
             "arme": "poison",
-            "nord": "toilette",
+            "nord": "garage",
             "sud": null,
             "est": null,
             "ouest": null
