@@ -102,7 +102,7 @@ class InferenceEngine:
     # Expressions dans la logique du premier ordre permettant de déduire les caractéristiques du meurtre
     def inference_rules(self):
         # Determine la piece du crime
-        self.clauses.append(expr('EstMort(x) & Personne_Piece(x, y) ==> PieceCrime(y)'))
+        self.clauses.append(expr('EstMort(x) & Personne_Piece(x,y) ==> PieceCrime(y)'))
 
         # Determiner l'arme du crime
         self.clauses.append(expr('PieceCrime(x) & Arme(y) & Piece_Arme(y, x) ==> ArmeCrime(y)'))
