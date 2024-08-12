@@ -1,5 +1,5 @@
 import os
-import sys #, tty , termios
+import sys , tty
 import random
 import time
 from board import Board
