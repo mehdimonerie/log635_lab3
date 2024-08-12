@@ -1,11 +1,11 @@
 {
-    "salle_depart": "bibliothÃ¨que",
-    "coupable": "Rose",
-    "victime": "Moutarde",
-    "arme_crime": "corde",
-    "salle_meurtre": "toilette",
+    "salle_depart": "salon",
+    "coupable": "Violet",
+    "victime": "Pervenche",
+    "arme_crime": "chandelier",
+    "salle_meurtre": "salon",
     "pieces": {
-        "bibliothÃ¨que": {
+        "salon": {
             "personnage": "Pervenche",
             "arme": "chandelier",
             "nord": null,
@@ -14,41 +14,41 @@
             "ouest": null
         },
         "bureau": {
-            "personnage": "Olive",
-            "arme": "stylet",
-            "nord": "bibliothÃ¨que",
-            "sud": null,
-            "est": "salon",
-            "ouest": null
-        },
-        "salon": {
             "personnage": "Leblanc",
-            "arme": "couteau",
-            "nord": null,
-            "sud": "toilette",
-            "est": null,
-            "ouest": "bureau"
-        },
-        "toilette": {
-            "personnage": "Moutarde",
-            "arme": "corde",
+            "arme": "chandelier",
             "nord": "salon",
             "sud": null,
             "est": "garage",
             "ouest": null
         },
         "garage": {
-            "personnage": "Violet",
-            "arme": "corde",
+            "personnage": "Olive",
+            "arme": "stylet",
+            "nord": null,
+            "sud": "toilette",
+            "est": null,
+            "ouest": "bureau"
+        },
+        "toilette": {
+            "personnage": "Rose",
+            "arme": "revolver",
+            "nord": "garage",
+            "sud": null,
+            "est": "bibliothèque",
+            "ouest": null
+        },
+        "bibliothèque": {
+            "personnage": "Moutarde",
+            "arme": "poison",
             "nord": null,
             "sud": "cuisine",
             "est": null,
             "ouest": "toilette"
         },
         "cuisine": {
-            "personnage": "Rose",
-            "arme": "poison",
-            "nord": "garage",
+            "personnage": "Violet",
+            "arme": null,
+            "nord": "bibliothèque",
             "sud": null,
             "est": null,
             "ouest": null

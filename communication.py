@@ -1,5 +1,5 @@
 import os
-import sys, tty, termios
+import sys #, tty , termios
 import random
 import time
 from board import Board
@@ -15,7 +15,10 @@ class RandomInteraction:
         
     def start(self):
         while True:
-            mode = random.choice(['text','terminal','speech','keyboard'])
+            ##########A DECOMMENTER EN PROD !!!!!!
+            #mode = random.choice(['text','terminal','speech','keyboard'])
+            mode = random.choice(['terminal'])
+
             print(f"Mode d'entrée choisi: {mode}")
             
             if mode == 'text':
@@ -74,7 +77,7 @@ class RandomInteraction:
                     
     def get_key(self):
         fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
+        #old_settings = termios.tcgetattr(fd)
         try:
             tty.setraw(sys.stdin.fileno())
             ch1 = sys.stdin.read(1)  # Lire le premier caractère
@@ -86,7 +89,8 @@ class RandomInteraction:
             else:
                 return ch1  # C'est une touche simple (comme 'q')
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            print()
+            #termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
     def keyboard_interaction(self):
         print("Keyboard interaction")
