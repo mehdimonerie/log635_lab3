@@ -15,10 +15,7 @@ class RandomInteraction:
         
     def start(self):
         while True:
-            ##########A DECOMMENTER EN PROD !!!!!!
-            #mode = random.choice(['text','terminal','speech','keyboard'])
-            mode = random.choice(['terminal'])
-
+            mode = random.choice(['keyboard'])
             print(f"Mode d'entrée choisi: {mode}")
             
             if mode == 'text':
@@ -101,12 +98,16 @@ class RandomInteraction:
                 print("Vous avez quitté l'interaction au clavier.")
                 break
             elif key == '\x1b[A':  # Flèche haut
-                self.board.deplacer_haut()
+                self.board.go_to_first_room()
             elif key == '\x1b[B':  # Flèche bas
-                self.board.deplacer_bas()
+                self.board.go_to_last_room()
             elif key == '\x1b[D':  # Flèche gauche
                 self.board.deplacer_gauche()
             elif key == '\x1b[C':  # Flèche droite
                 self.board.deplacer_droite()
+            elif key == '1': # Touche 1
+                self.board.yes_answer()
+            elif key == '2': # Touche 2
+                self.board.no_answer()
             else:
                 print("Touche non reconnue.")

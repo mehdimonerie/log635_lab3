@@ -1,6 +1,8 @@
 import json
 import random
 
+import random
+
 def generate_virtual_board():
     # Listes des éléments de jeu
     pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
@@ -15,14 +17,14 @@ def generate_virtual_board():
     # Sélectionner le coupable, la victime, l'arme et la salle du meurtre
     coupable = personnages.pop(random.randint(0, len(personnages) - 1))
     victime = personnages.pop(random.randint(0, len(personnages) - 1))
-    arme_crime = random.choice(armes)
+    arme_crime = armes.pop(random.randint(0, len(armes) - 1))
     salle_meurtre = random.choice(pieces)
 
     # Sélectionner une pièce différente pour le coupable
     pieces_restantes = [piece for piece in pieces if piece != salle_meurtre]
     salle_coupable = random.choice(pieces_restantes)
 
-    # Assigner les personnages restants et armes restantes aux autres pièces
+    # Répartir les personnages et les armes dans les pièces
     board = {
         "salle_depart": pieces[0],
         "coupable": coupable,
@@ -32,11 +34,7 @@ def generate_virtual_board():
         "pieces": {}
     }
 
-    # Répartir les personnages et les armes dans les pièces
-    for i, piece in enumerate(pieces):
-        personnage = None
-        arme = None
-
+    for piece in pieces:
         if piece == salle_meurtre:
             # La salle du meurtre doit contenir la victime et l'arme du crime
             personnage = victime
@@ -44,6 +42,7 @@ def generate_virtual_board():
         elif piece == salle_coupable:
             # Placer le coupable dans une pièce différente
             personnage = coupable
+            arme = armes.pop() if armes else None
         else:
             # Assigner les personnages et armes restants
             personnage = personnages.pop() if personnages else None
@@ -51,30 +50,9 @@ def generate_virtual_board():
 
         board["pieces"][piece] = {
             "personnage": personnage,
-            "arme": arme,
-            "nord": None,
-            "sud": None,
-            "est": None,
-            "ouest": None
+            "arme": arme
         }
-
-    # Définir les connexions entre les pièces (exemple simple de connexion)
-    if len(pieces) >= 2:
-        board["pieces"][pieces[0]]["sud"] = pieces[1]
-        board["pieces"][pieces[1]]["nord"] = pieces[0]
-    if len(pieces) >= 3:
-        board["pieces"][pieces[1]]["est"] = pieces[2]
-        board["pieces"][pieces[2]]["ouest"] = pieces[1]
-    if len(pieces) >= 4:
-        board["pieces"][pieces[2]]["sud"] = pieces[3]
-        board["pieces"][pieces[3]]["nord"] = pieces[2]
-    if len(pieces) >= 5:
-        board["pieces"][pieces[3]]["est"] = pieces[4]
-        board["pieces"][pieces[4]]["ouest"] = pieces[3]
-    if len(pieces) >= 6:
-        board["pieces"][pieces[4]]["sud"] = pieces[5]
-        board["pieces"][pieces[5]]["nord"] = pieces[4]
-
+                
     # Sauvegarder le tableau virtuel dans un fichier JSON
     with open('data/state_board.json', 'w') as outfile:
         json.dump(board, outfile, indent=4, ensure_ascii=False)

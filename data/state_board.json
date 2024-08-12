@@ -1,57 +1,33 @@
 {
-    "salle_depart": "bureau",
-    "coupable": "Leblanc",
-    "victime": "Rose",
+    "salle_depart": "garage",
+    "coupable": "Rose",
+    "victime": "Olive",
     "arme_crime": "corde",
-    "salle_meurtre": "bureau",
+    "salle_meurtre": "garage",
     "pieces": {
-        "bureau": {
-            "personnage": "Rose",
-            "arme": "corde",
-            "nord": null,
-            "sud": "bibliotheque",
-            "est": null,
-            "ouest": null
-        },
-        "bibliotheque": {
-            "personnage": "Violet",
-            "arme": "chandelier",
-            "nord": "bureau",
-            "sud": null,
-            "est": "cuisine",
-            "ouest": null
-        },
-        "cuisine": {
-            "personnage": "Leblanc",
-            "arme": null,
-            "nord": null,
-            "sud": "garage",
-            "est": null,
-            "ouest": "bibliotheque"
-        },
         "garage": {
             "personnage": "Olive",
-            "arme": "couteau",
-            "nord": "cuisine",
-            "sud": null,
-            "est": "garage",
-            "ouest": null
+            "arme": "corde"
+        },
+        "bureau": {
+            "personnage": "Rose",
+            "arme": "poison"
         },
         "salon": {
             "personnage": "Moutarde",
-            "arme": "corde",
-            "nord": null,
-            "sud": "toilette",
-            "est": null,
-            "ouest": "garage"
+            "arme": "couteau"
+        },
+        "cuisine": {
+            "personnage": "Leblanc",
+            "arme": "revolver"
         },
         "toilette": {
             "personnage": "Pervenche",
-            "arme": "matraque",
-            "nord": "salon",
-            "sud": null,
-            "est": null,
-            "ouest": null
+            "arme": "chandelier"
+        },
+        "bibliotheque": {
+            "personnage": "Violet",
+            "arme": "matraque"
         }
     }
 }
