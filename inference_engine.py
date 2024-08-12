@@ -4,11 +4,11 @@ from aima.logic import *
 class InferenceEngine:
 
     def __init__(self, facts, rules):
-        with open('data/state_board.json', 'r') as file:
+        with open('data/facts.json', 'r') as file:
             initial_board = json.load(file)
             self.weapons = initial_board["weapons"]
             self.rooms = initial_board["rooms"]
-            self.persons = initial_board["suspects"]
+            self.persons = initial_board["persons"]
         
         # Liste de clauses (faits) qui seront stockées dans la base de connaissance.
         self.clauses = []        

@@ -1,6 +1,7 @@
 from agents import Agent
 from inference_engine import InferenceEngine
 from communication import RandomInteraction
+import game
 from utils import load_facts, load_rules
 
 def main():
@@ -8,6 +9,9 @@ def main():
     facts = load_facts('data/facts.txt')
     rules = load_rules('data/rules.txt')
     
+    #Initialiser le board
+    game.generate_virtual_board()
+
     # Initialiser le moteur d'inférence
     inference_engine = InferenceEngine(facts, rules)
     

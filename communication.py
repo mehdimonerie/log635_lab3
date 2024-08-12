@@ -1,6 +1,8 @@
 import os
+import sys, tty, termios
 import random
 import time
+from board import Board
 import speech_recognition as sr
 from text_to_speech import speak
 
@@ -8,10 +10,12 @@ class RandomInteraction:
     def __init__(self, agent):
         self.agent = agent
         self.recognizer = sr.Recognizer()
-    
+        game_data = Board.charger_tableau()  # Charger les données du plateau (modifiez cette méthode selon votre chargement réel)
+        self.board = Board(game_data)  # Ini
+        
     def start(self):
         while True:
-            mode = random.choice(['text', 'terminal', 'speech'])
+            mode = random.choice(['keyboard'])
             print(f"Mode d'entrée choisi: {mode}")
             speak(f"Mode d'entrée choisi: {mode}")
             
@@ -21,6 +25,8 @@ class RandomInteraction:
                 self.terminal_interaction()
             elif mode == 'speech':
                 self.speech_interaction()
+            elif mode == 'keyboard':
+                self.keyboard_interaction()
 
             input_text = input()
             if input_text.lower() == 'exit':
@@ -67,3 +73,39 @@ class RandomInteraction:
             except sr.RequestError as e:
                 print(f"Erreur de service; {e}")
                 speak(f"Erreur de service; {e}")
+                    
+    def get_key(self):
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            ch1 = sys.stdin.read(1)  # Lire le premier caractère
+            
+            if ch1 == '\x1b':  # C'est le début d'une séquence d'échappement (flèche directionnelle)
+                ch2 = sys.stdin.read(1)
+                ch3 = sys.stdin.read(1)
+                return ch1 + ch2 + ch3
+            else:
+                return ch1  # C'est une touche simple (comme 'q')
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
+    def keyboard_interaction(self):
+        print("Keyboard interaction")
+        print("Utilisez les touches directionnelles pour déplacer l'agent (appuyez sur 'q' pour quitter).")
+
+        while True:
+            key = self.get_key()
+            if key == 'q':
+                print("Vous avez quitté l'interaction au clavier.")
+                break
+            elif key == '\x1b[A':  # Flèche haut
+                self.board.deplacer_haut()
+            elif key == '\x1b[B':  # Flèche bas
+                self.board.deplacer_bas()
+            elif key == '\x1b[D':  # Flèche gauche
+                self.board.deplacer_gauche()
+            elif key == '\x1b[C':  # Flèche droite
+                self.board.deplacer_droite()
+            else:
+                print("Touche non reconnue.")

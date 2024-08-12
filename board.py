@@ -1,49 +1,50 @@
-import keyboard
+import json
 
 class Board:
     def __init__(self, game_data):
-        self.pieces = game_data["pieces"]
-        self.personnages = game_data["personnages"]
-        self.armes = game_data["armes"]
-        self.position_actuelle = 0  # Index de la pièce actuelle dans la liste
-        self.largeur = 3  # Supposons que les pièces sont organisées en grille 3x2 (ajustable selon vos besoins)
+        self.pieces = game_data["pieces"]  # Utilisez la clé "pieces" du JSON
+        self.position_actuelle = game_data["salle_depart"]  # Commencer dans la pièce de départ
+        self.personnages = {piece: data["personnage"] for piece, data in self.pieces.items()}  # Associez personnages aux pièces
+        self.armes = {piece: data["arme"] for piece, data in self.pieces.items()}  # Associez armes aux pièces
 
     def afficher_position(self):
-        print(f"Vous êtes actuellement dans {self.pieces[self.position_actuelle]}.")
+        print(f"Vous êtes actuellement dans {self.position_actuelle}. Il y a {self.personnages[self.position_actuelle]} et {self.armes[self.position_actuelle]}.")
 
     def deplacer_haut(self):
-        if self.position_actuelle >= self.largeur:
-            self.position_actuelle -= self.largeur
+        piece_actuelle = self.pieces[self.position_actuelle]
+        if piece_actuelle["nord"]:
+            self.position_actuelle = piece_actuelle["nord"]
             self.afficher_position()
+        else:
+            print("Vous ne pouvez pas vous déplacer au nord.")
 
     def deplacer_bas(self):
-        if self.position_actuelle < len(self.pieces) - self.largeur:
-            self.position_actuelle += self.largeur
+        piece_actuelle = self.pieces[self.position_actuelle]
+        if piece_actuelle["sud"]:
+            self.position_actuelle = piece_actuelle["sud"]
             self.afficher_position()
+        else:
+            print("Vous ne pouvez pas vous déplacer au sud.")
 
     def deplacer_gauche(self):
-        if self.position_actuelle % self.largeur > 0:
-            self.position_actuelle -= 1
+        piece_actuelle = self.pieces[self.position_actuelle]
+        if piece_actuelle["ouest"]:
+            self.position_actuelle = piece_actuelle["ouest"]
             self.afficher_position()
+        else:
+            print("Vous ne pouvez pas vous déplacer à l'ouest.")
 
     def deplacer_droite(self):
-        if self.position_actuelle % self.largeur < self.largeur - 1:
-            self.position_actuelle += 1
+        piece_actuelle = self.pieces[self.position_actuelle]
+        if piece_actuelle["est"]:
+            self.position_actuelle = piece_actuelle["est"]
             self.afficher_position()
+        else:
+            print("Vous ne pouvez pas vous déplacer à l'est.")
 
-    def deplacer_agent(self):
-        self.afficher_position()
-        print("Utilisez les touches directionnelles pour vous déplacer. Appuyez sur 'q' pour quitter.")
-
-        while True:
-            if keyboard.is_pressed('up'):
-                self.deplacer_haut()
-            elif keyboard.is_pressed('down'):
-                self.deplacer_bas()
-            elif keyboard.is_pressed('left'):
-                self.deplacer_gauche()
-            elif keyboard.is_pressed('right'):
-                self.deplacer_droite()
-            elif keyboard.is_pressed('q'):
-                print("Vous avez quitté le déplacement.")
-                break
+    @staticmethod
+    def charger_tableau(filepath='data/state_board.json'):
+        """Charge le plateau de jeu à partir d'un fichier JSON."""
+        with open(filepath, 'r') as f:
+            return json.load(f)
+        

@@ -1,6 +1,57 @@
 {
-    "rooms": ["cuisine", "hall", "salon", "bureau", "bibliotheque", "toilette", "garage"],
-    "weapons": ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"],
-    "suspects": ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"],
-    "current_state": {}
+    "salle_depart": "Cuisine",
+    "coupable": "Colonel Moutarde",
+    "victime": "Professeur Violet",
+    "arme_crime": "Tuyau de Plomb",
+    "salle_meurtre": "Bibliothèque",
+    "pieces": {
+        "Cuisine": {
+            "personnage": "Madame Rose",
+            "arme": "Revolver",
+            "nord": null,
+            "sud": "Véranda",
+            "est": null,
+            "ouest": null
+        },
+        "Véranda": {
+            "personnage": "Madame Leblanc",
+            "arme": "Tuyau de Plomb",
+            "nord": "Cuisine",
+            "sud": null,
+            "est": "Salle à Manger",
+            "ouest": null
+        },
+        "Salle à Manger": {
+            "personnage": "Monsieur Olive",
+            "arme": "Clé anglaise",
+            "nord": null,
+            "sud": "Salon",
+            "est": null,
+            "ouest": "Véranda"
+        },
+        "Salon": {
+            "personnage": "Madame Pervenche",
+            "arme": "Poignard",
+            "nord": "Salle à Manger",
+            "sud": null,
+            "est": "Salle de Bal",
+            "ouest": null
+        },
+        "Salle de Bal": {
+            "personnage": null,
+            "arme": "Chandelier",
+            "nord": null,
+            "sud": "Bibliothèque",
+            "est": null,
+            "ouest": "Salon"
+        },
+        "Bibliothèque": {
+            "personnage": null,
+            "arme": "Corde",
+            "nord": "Salle de Bal",
+            "sud": null,
+            "est": null,
+            "ouest": null
+        }
+    }
 }
