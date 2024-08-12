@@ -10,14 +10,13 @@ class RandomInteraction:
     def __init__(self, agent):
         self.agent = agent
         self.recognizer = sr.Recognizer()
-        game_data = Board.charger_tableau()  # Charger les données du plateau (modifiez cette méthode selon votre chargement réel)
-        self.board = Board(game_data)  # Ini
+        game_data = Board.charger_tableau()
+        self.board = Board(game_data)  
         
     def start(self):
         while True:
-            mode = random.choice(['keyboard'])
+            mode = random.choice(['text','terminal','speech','keyboard'])
             print(f"Mode d'entrée choisi: {mode}")
-            speak(f"Mode d'entrée choisi: {mode}")
             
             if mode == 'text':
                 self.text_interaction('data/input.txt', 'data/output.txt')
@@ -33,7 +32,7 @@ class RandomInteraction:
                 break
     
     def text_interaction(self, input_filepath, output_filepath):
-        speak("Question de l'agent")
+        print('Text interaction')
         last_modified_time = os.path.getmtime(input_filepath)
         
         while True:
@@ -51,15 +50,14 @@ class RandomInteraction:
                 speak(response)
     
     def terminal_interaction(self):
-        speak("Question de l'agent")
+        print("Terminal interaction")
         user_input = input()
         response = self.agent.process_input(user_input)
         print("Agent: " + response)
-        speak(response)
     
     def speech_interaction(self):
+        print("Speech interaction")
         with sr.Microphone() as source:
-            speak("Question de l'agent")
             print("Parlez...")
             audio = self.recognizer.listen(source)
             try:
@@ -93,7 +91,6 @@ class RandomInteraction:
     def keyboard_interaction(self):
         print("Keyboard interaction")
         print("Utilisez les touches directionnelles pour déplacer l'agent (appuyez sur 'q' pour quitter).")
-
         while True:
             key = self.get_key()
             if key == 'q':

@@ -18,7 +18,11 @@ def generate_virtual_board():
     arme_crime = random.choice(armes)
     salle_meurtre = random.choice(pieces)
 
-    # Assigner les autres personnages et armes aux autres pièces
+    # Sélectionner une pièce différente pour le coupable
+    pieces_restantes = [piece for piece in pieces if piece != salle_meurtre]
+    salle_coupable = random.choice(pieces_restantes)
+
+    # Assigner les personnages restants et armes restantes aux autres pièces
     board = {
         "salle_depart": pieces[0],
         "coupable": coupable,
@@ -28,10 +32,26 @@ def generate_virtual_board():
         "pieces": {}
     }
 
+    # Répartir les personnages et les armes dans les pièces
     for i, piece in enumerate(pieces):
+        personnage = None
+        arme = None
+
+        if piece == salle_meurtre:
+            # La salle du meurtre doit contenir la victime et l'arme du crime
+            personnage = victime
+            arme = arme_crime
+        elif piece == salle_coupable:
+            # Placer le coupable dans une pièce différente
+            personnage = coupable
+        else:
+            # Assigner les personnages et armes restants
+            personnage = personnages.pop() if personnages else None
+            arme = armes.pop() if armes else None
+
         board["pieces"][piece] = {
-            "personnage": personnages[i] if i < len(personnages) else None,
-            "arme": armes[i] if i < len(armes) else None,
+            "personnage": personnage,
+            "arme": arme,
             "nord": None,
             "sud": None,
             "est": None,
@@ -59,4 +79,4 @@ def generate_virtual_board():
     with open('data/state_board.json', 'w') as outfile:
         json.dump(board, outfile, indent=4, ensure_ascii=False)
 
-    print("Tableau virtuel généré avec succès : virtual_board.json")
+    print("Tableau virtuel généré avec succès : state_board.json")
