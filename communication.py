@@ -74,9 +74,10 @@ class RandomInteraction:
                     
     def get_key(self):
         fd = sys.stdin.fileno()
+        #uncomment termios/tty when on linux, for windows, use WASD as arrow keys
         #old_settings = termios.tcgetattr(fd)
         try:
-            tty.setraw(sys.stdin.fileno())
+            # tty.setraw(sys.stdin.fileno())
             ch1 = sys.stdin.read(1)  # Lire le premier caractère
             
             if ch1 == '\x1b':  # C'est le début d'une séquence d'échappement (flèche directionnelle)
@@ -84,7 +85,7 @@ class RandomInteraction:
                 ch3 = sys.stdin.read(1)
                 return ch1 + ch2 + ch3
             else:
-                return ch1  # C'est une touche simple (comme 'q')
+                return ch1 + sys.stdin.read(1)  # C'est une touche simple (comme 'q')
         finally:
             print()
             #termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
@@ -94,20 +95,28 @@ class RandomInteraction:
         print("Utilisez les touches directionnelles pour déplacer l'agent (appuyez sur 'q' pour quitter).")
         while True:
             key = self.get_key()
-            if key == 'q':
+            if key == 'q\n':
                 print("Vous avez quitté l'interaction au clavier.")
                 break
             elif key == '\x1b[A':  # Flèche haut
                 self.board.go_to_first_room()
+            elif key == 'w\n':  # Flèche haut sur windows W
+                self.board.go_to_first_room()
             elif key == '\x1b[B':  # Flèche bas
+                self.board.go_to_last_room()
+            elif key == 's\n':  # Flèche bas sur Windows S
                 self.board.go_to_last_room()
             elif key == '\x1b[D':  # Flèche gauche
                 self.board.deplacer_gauche()
+            elif key == 'a\n':  # Flèche gauche sur windows A
+                self.board.deplacer_gauche()
             elif key == '\x1b[C':  # Flèche droite
                 self.board.deplacer_droite()
-            elif key == '1': # Touche 1
+            elif key == 'd\n':  # Flèche droite sur windows D
+                self.board.deplacer_droite()
+            elif key == '1\n': # Touche 1
                 self.board.yes_answer()
-            elif key == '2': # Touche 2
+            elif key == '2\n': # Touche 2
                 self.board.no_answer()
             else:
                 print("Touche non reconnue.")

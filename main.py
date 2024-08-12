@@ -28,7 +28,8 @@ def main():
     print(f"Pièce du crime déduite : {piece_du_crime}")
     arme_du_crime = inference_engine.get_crime_weapon()
     print(f"Arme du crime déduite : {arme_du_crime}")
-
+    print(inference_engine.get_innocent())
+    print(inference_engine.get_suspect())
     # Initialiser l'agent
     agent = Agent(inference_engine)
     
