@@ -1,54 +1,54 @@
 {
-    "salle_depart": "salon",
-    "coupable": "Violet",
-    "victime": "Pervenche",
-    "arme_crime": "chandelier",
-    "salle_meurtre": "salon",
+    "salle_depart": "bureau",
+    "coupable": "Leblanc",
+    "victime": "Rose",
+    "arme_crime": "corde",
+    "salle_meurtre": "bureau",
     "pieces": {
-        "salon": {
-            "personnage": "Pervenche",
-            "arme": "chandelier",
+        "bureau": {
+            "personnage": "Rose",
+            "arme": "corde",
             "nord": null,
-            "sud": "bureau",
+            "sud": "bibliotheque",
             "est": null,
             "ouest": null
         },
-        "bureau": {
-            "personnage": "Leblanc",
+        "bibliotheque": {
+            "personnage": "Violet",
             "arme": "chandelier",
-            "nord": "salon",
+            "nord": "bureau",
+            "sud": null,
+            "est": "cuisine",
+            "ouest": null
+        },
+        "cuisine": {
+            "personnage": "Leblanc",
+            "arme": null,
+            "nord": null,
+            "sud": "garage",
+            "est": null,
+            "ouest": "bibliotheque"
+        },
+        "garage": {
+            "personnage": "Olive",
+            "arme": "couteau",
+            "nord": "cuisine",
             "sud": null,
             "est": "garage",
             "ouest": null
         },
-        "garage": {
-            "personnage": "Olive",
-            "arme": "stylet",
+        "salon": {
+            "personnage": "Moutarde",
+            "arme": "corde",
             "nord": null,
             "sud": "toilette",
             "est": null,
-            "ouest": "bureau"
+            "ouest": "garage"
         },
         "toilette": {
-            "personnage": "Rose",
-            "arme": "revolver",
-            "nord": "garage",
-            "sud": null,
-            "est": "bibliothèque",
-            "ouest": null
-        },
-        "bibliothèque": {
-            "personnage": "Moutarde",
-            "arme": "poison",
-            "nord": null,
-            "sud": "cuisine",
-            "est": null,
-            "ouest": "toilette"
-        },
-        "cuisine": {
-            "personnage": "Violet",
-            "arme": null,
-            "nord": "bibliothèque",
+            "personnage": "Pervenche",
+            "arme": "matraque",
+            "nord": "salon",
             "sud": null,
             "est": null,
             "ouest": null
