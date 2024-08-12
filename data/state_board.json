@@ -1,6 +1,6 @@
 {
-    "rooms": ["cuisine", "hall", "salon", "bureau", "bibliothèque", "salle de billard"],
-    "weapons": ["couteau", "chandelier", "revolver", "corde", "tuyau de plomb", "clé anglaise"],
-    "suspects": ["Colonel Moutarde", "Mademoiselle Rose", "Professeur Violet", "Monsieur Olive", "Madame Leblanc", "Madame Pervenche"],
+    "rooms": ["cuisine", "hall", "salon", "bureau", "bibliothèque", "toilette", "garage"],
+    "weapons": ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"],
+    "suspects": ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"],
     "current_state": {}
 }
