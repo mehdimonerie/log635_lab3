@@ -1,4 +1,6 @@
+import os
 import random
+import time
 import speech_recognition as sr
 from text_to_speech import speak
 
@@ -26,6 +28,14 @@ class RandomInteraction:
     
     def text_interaction(self, input_filepath, output_filepath):
         speak("Question de l'agent")
+        last_modified_time = os.path.getmtime(input_filepath)
+        
+        while True:
+            current_modified_time = os.path.getmtime(input_filepath)
+            if current_modified_time != last_modified_time:
+                break
+            time.sleep(0.1)
+            
         with open(input_filepath, 'r') as infile, open(output_filepath, 'w') as outfile:
             user_input = infile.readline().strip()
             if user_input:
