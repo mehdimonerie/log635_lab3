@@ -3,9 +3,9 @@ import random
 
 def generate_virtual_board():
     # Listes des éléments de jeu
-    pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
+    pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
     personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
-    armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
+    armes = ["couteau", "chandelier", "revolver", "corde", "poison", "matraque"]
 
     # Mélanger les listes pour obtenir des éléments aléatoires
     random.shuffle(pieces)
@@ -78,5 +78,20 @@ def generate_virtual_board():
     # Sauvegarder le tableau virtuel dans un fichier JSON
     with open('data/state_board.json', 'w') as outfile:
         json.dump(board, outfile, indent=4, ensure_ascii=False)
+    
+    return board
 
-    print("Tableau virtuel généré avec succès : state_board.json")
+def generate_facts(board):
+    facts = [
+        f'EstMort({board["victime"]})',
+        f'Personne_Piece({board["victime"]}, {board["salle_meurtre"]})',
+        f'Arme_Piece({board["arme_crime"]}, {board["salle_meurtre"]})'
+    ]
+
+    # for piece, data in board["pieces"].items():
+    #     if data["personnage"]:
+    #         facts.append(f'Personne_Piece({data["personnage"]}, {piece})')
+    #     if data["arme"]:
+    #         facts.append(f'Arme_Piece({data["arme"]}, {piece})')
+
+    return facts
