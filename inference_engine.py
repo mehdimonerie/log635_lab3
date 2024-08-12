@@ -6,9 +6,9 @@ class InferenceEngine:
     def __init__(self, facts, rules):
         with open('data/state_board.json', 'r') as file:
             initial_board = json.load(file)
-            self.weapons = initial_board.weapons
-            self.rooms = initial_board.rooms
-            self.persons = initial_board.suspects
+            self.weapons = initial_board["weapons"]
+            self.rooms = initial_board["rooms"]
+            self.persons = initial_board["suspects"]
         
         # Liste de clauses (faits) qui seront stockées dans la base de connaissance.
         self.clauses = []        

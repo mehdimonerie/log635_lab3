@@ -1,5 +1,5 @@
 {
-    "rooms": ["cuisine", "hall", "salon", "bureau", "bibliothèque", "toilette", "garage"],
+    "rooms": ["cuisine", "hall", "salon", "bureau", "bibliotheque", "toilette", "garage"],
     "weapons": ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"],
     "suspects": ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"],
     "current_state": {}
