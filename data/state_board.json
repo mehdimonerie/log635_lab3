@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
     "salle_depart": "Cuisine",
     "coupable": "Leblanc",
     "victime": "Violet",
@@ -28,6 +29,61 @@
         "Bureau": {
             "personnage": "Pervenche",
             "arme": "Corde"
+=======
+    "salle_depart": "salon",
+    "coupable": "Moutarde",
+    "victime": "Rose",
+    "arme_crime": "corde",
+    "salle_meurtre": "salon",
+    "pieces": {
+        "salon": {
+            "personnage": "Rose",
+            "arme": "corde",
+            "nord": null,
+            "sud": "cuisine",
+            "est": null,
+            "ouest": null
+        },
+        "cuisine": {
+            "personnage": "Leblanc",
+            "arme": "couteau",
+            "nord": "salon",
+            "sud": null,
+            "est": "toilette",
+            "ouest": null
+        },
+        "toilette": {
+            "personnage": "Moutarde",
+            "arme": null,
+            "nord": null,
+            "sud": "bureau",
+            "est": null,
+            "ouest": "cuisine"
+        },
+        "bureau": {
+            "personnage": "Pervenche",
+            "arme": "revolver",
+            "nord": "toilette",
+            "sud": null,
+            "est": "garage",
+            "ouest": null
+        },
+        "garage": {
+            "personnage": "Olive",
+            "arme": "chandelier",
+            "nord": null,
+            "sud": "bibliotheque",
+            "est": null,
+            "ouest": "bureau"
+        },
+        "bibliotheque": {
+            "personnage": "Violet",
+            "arme": "poison",
+            "nord": "garage",
+            "sud": null,
+            "est": null,
+            "ouest": null
+>>>>>>> Stashed changes
         }
     }
 }

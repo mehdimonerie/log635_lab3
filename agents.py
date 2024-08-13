@@ -21,12 +21,7 @@ class Agent:
         pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
-
-        # Detect which grammar to use based on input
-        pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
-        personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
-        armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
-
+        
         if (any(char.isdigit() for char in input_text) or 'minuit' in input_text or 'midi' in input_text) \
                 and any(sub in input_text for sub in ['se trouvait', 'était', 'etait']) \
                 and any(room in input_text for room in pieces) \
