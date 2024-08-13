@@ -34,32 +34,49 @@ class Agent:
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
         
+        # Initialize keyword lists
+        found_pieces = [room for room in pieces if room in input_text]
+        found_personnages = [character for character in personnages if character in input_text]
+        found_armes = [weapon for weapon in armes if weapon in input_text]
+
         if (any(char.isdigit() for char in input_text) or 'minuit' in input_text or 'midi' in input_text) \
                 and any(sub in input_text for sub in ['se trouvait', 'était', 'etait']) \
-                and any(room in input_text for room in pieces) \
-                and any(character in input_text for character in personnages):
+                and found_pieces \
+                and found_personnages:
             grammar = 'grammars/personne_piece_heure.fcfg'
         elif (any(char.isdigit() for char in input_text) or 'minuit' in input_text or 'midi' in input_text) \
                 and any(sub in input_text for sub in ['mort', 'morte']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_morte_heure.fcfg'
         elif any(sub in input_text for sub in ['se trouvait', 'était', 'etait', 'trouve', 'est']) \
-                and any(weapon in input_text for weapon in armes) \
-                and any(room in input_text for room in pieces):
+                and found_armes \
+                and found_pieces:
             grammar = 'grammars/arme_piece.fcfg'
         elif any(sub in input_text for sub in ['trouve', 'est']) \
-                and any(character in input_text for character in personnages) \
-                and any(room in input_text for room in pieces):
+                and found_personnages \
+                and found_pieces:
             grammar = 'grammars/personne_piece.fcfg'
         elif any(sub in input_text for sub in ['est mort', 'est morte']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_morte.fcfg'
         elif any(sub in input_text for sub in ['est vivant', 'est vivante']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_vivant.fcfg'
         elif any(sub in input_text for sub in ['marque ', 'marques']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_marque.fcfg'
+        elif any(sub in input_text for sub in ['blessure ', 'blessures']) \
+                and found_personnages:
+            grammar = 'grammars/personne_blessure.fcfg'
+        elif any(sub in input_text for sub in ['eclats']) \
+                and found_personnages:
+            grammar = 'grammars/personne_debris.fcfg'
+        elif any(sub in input_text for sub in ['discoloration ', 'discolorations']) \
+                and found_personnages:
+            grammar = 'grammars/personne_discoloration.fcfg'
+        elif any(sub in input_text for sub in ['trou ', 'trous']) \
+                and found_personnages:
+            grammar = 'grammars/personne_trou.fcfg'
         else:
             return "L'entrée n'est pas reconnue."
         
@@ -76,6 +93,7 @@ class Agent:
             return "Je n'ai toujours pas assez d'informations pour résoudre ce crime"
 
 
+
     def to_fol(self, fact, grammar):
         t = self.fol_to_string(nltk.interpret_sents(fact, grammar))
         print(t)
@@ -85,7 +103,7 @@ class Agent:
     def fol_to_string(self, results):
         res = ''
         for result in results:
-            for (synrep, semrep) in result:            
+            for (synrep, semrep) in result:
                 res += str(semrep)
         return res
     

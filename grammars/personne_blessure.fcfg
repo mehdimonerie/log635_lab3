@@ -7,7 +7,7 @@ V -> 'a'
 Det -> 'une'
 P -> 'a'
 P2 -> 'la'
-Neclats -> 'blessure'
+Neclats -> 'blessure' | 'blessures'
 Ncorps -> 'poitrine'
 
 Nprop[SEM=<Moutarde>] -> 'Moutarde'
