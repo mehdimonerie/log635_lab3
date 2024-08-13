@@ -7,17 +7,19 @@ class Board:
         self.personnages = {piece: data["personnage"] for piece, data in self.pieces.items()}
         self.armes = {piece: data["arme"] for piece, data in self.pieces.items()}
         self.victime = game_data["victime"]
+        self.positionsVisites = []
 
     def afficher_position(self, agent):
         print(self.victime)
         print(f"Vous êtes actuellement dans {self.position_actuelle}. Il y a {self.personnages[self.position_actuelle]} et {self.armes[self.position_actuelle]}.")
-        if self.personnages[self.position_actuelle] == self.victime:
-            retourMort = agent.process_input(f"{self.victime} est mort")
-            print(retourMort)
-        retourPersonnage = agent.process_input(f"{self.personnages[self.position_actuelle]} est dans la {self.position_actuelle}")
-        print(retourPersonnage)
-        retourArme = agent.process_input(f"Le {self.armes[self.position_actuelle]} est dans la {self.position_actuelle}")
-        print(retourArme)
+        if not self.positionsVisites.__contains__(self.position_actuelle):
+            self.positionsVisites.append(self.position_actuelle)
+            if self.personnages[self.position_actuelle] == self.victime:
+                retourMort = agent.process_input(f"{self.victime} est mort")
+            else :
+                retourVivant = agent.process_input(f"{self.personnages[self.position_actuelle]} est vivant")
+            retourPersonnage = agent.process_input(f"{self.personnages[self.position_actuelle]} est dans la {self.position_actuelle}")
+            retourArme = agent.process_input(f"Le {self.armes[self.position_actuelle]} est dans la {self.position_actuelle}")
         
 
     def askQuestion(self, agent): 
@@ -57,7 +59,6 @@ class Board:
     
     def no_answer(self, agent):
         agent.answerNo()
-        print("Non")
 
     @staticmethod
     def charger_tableau(filepath='data/state_board.json'):
