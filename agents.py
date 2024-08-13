@@ -23,42 +23,64 @@ class Agent:
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
         
+        # Initialize keyword lists
+        found_pieces = [room for room in pieces if room in input_text]
+        found_personnages = [character for character in personnages if character in input_text]
+        found_armes = [weapon for weapon in armes if weapon in input_text]
+
         if (any(char.isdigit() for char in input_text) or 'minuit' in input_text or 'midi' in input_text) \
                 and any(sub in input_text for sub in ['se trouvait', 'était', 'etait']) \
-                and any(room in input_text for room in pieces) \
-                and any(character in input_text for character in personnages):
+                and found_pieces \
+                and found_personnages:
             grammar = 'grammars/personne_piece_heure.fcfg'
         elif (any(char.isdigit() for char in input_text) or 'minuit' in input_text or 'midi' in input_text) \
                 and any(sub in input_text for sub in ['mort', 'morte']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_morte_heure.fcfg'
         elif any(sub in input_text for sub in ['se trouvait', 'était', 'etait', 'trouve', 'est']) \
-                and any(weapon in input_text for weapon in armes) \
-                and any(room in input_text for room in pieces):
+                and found_armes \
+                and found_pieces:
             grammar = 'grammars/arme_piece.fcfg'
         elif any(sub in input_text for sub in ['trouve', 'est']) \
-                and any(character in input_text for character in personnages) \
-                and any(room in input_text for room in pieces):
+                and found_personnages \
+                and found_pieces:
             grammar = 'grammars/personne_piece.fcfg'
         elif any(sub in input_text for sub in ['est mort', 'est morte']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_morte.fcfg'
         elif any(sub in input_text for sub in ['est vivant', 'est vivante']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_vivant.fcfg'
         elif any(sub in input_text for sub in ['marque ', 'marques']) \
-                and any(character in input_text for character in personnages):
+                and found_personnages:
             grammar = 'grammars/personne_marque.fcfg'
+        elif any(sub in input_text for sub in ['blessure ', 'blessures']) \
+                and found_personnages:
+            grammar = 'grammars/personne_blessure.fcfg'
+        elif any(sub in input_text for sub in ['eclats']) \
+                and found_personnages:
+            grammar = 'grammars/personne_debris.fcfg'
+        elif any(sub in input_text for sub in ['discoloration ', 'discolorations']) \
+                and found_personnages:
+            grammar = 'grammars/personne_discoloration.fcfg'
+        elif any(sub in input_text for sub in ['trou ', 'trous']) \
+                and found_personnages:
+            grammar = 'grammars/personne_trou.fcfg'
         else:
             return "L'entrée n'est pas reconnue."
         
-        self.inference_engine.add_clause(self.to_fol([input_text], grammar))
+        # Collect the found keywords
+        keywords = found_pieces + found_personnages + found_armes
+        
+        # Add the clause to the inference engine using only the keywords
+        self.inference_engine.add_clause(self.to_fol(' '.join(keywords), grammar))
         self.deduce_new_facts()
         suspect = self.inference_engine.get_suspect()
-        if(suspect): 
+        if suspect:
             return f"Le coupable est: {suspect}"
         else:
             return "Je n'ai toujours pas assez d'informations pour résoudre ce crime"
+
 
 
     def to_fol(self, fact, grammar):
@@ -70,23 +92,6 @@ class Agent:
     def fol_to_string(self, results):
         res = ''
         for result in results:
-            for (synrep, semrep) in result:            
+            for (synrep, semrep) in result:
                 res += str(semrep)
         return res
-    
-
-    def deduce_new_facts(self):
-        deduction_rules = [ #Pas tous utile, phrase que l'engine pourrait renvoyer
-            ("{} avait acces a {} dans le {} à {}h", ['personnage', 'arme', 'piece', 'heure']),
-            ("{} était dans le même lieu que {} à {}h", ['suspect', 'victime', 'heure']),
-            ("{} est suspect car il était dans {} quand {} est mort", ['suspect', 'piece', 'victime']),
-            ("{} pouvait utiliser {} dans le {}", ['personnage', 'arme', 'piece']),
-            ("{} est suspect car {} a été tué avec {}", ['suspect', 'victime', 'arme']),
-            ("{} est suspect car il était dans le {} peu avant ou apres la mort de {}", ['suspect', 'piece', 'victime']),
-            ("{} et {} pourraient être complices car ils étaient dans le {} avec {}", ['suspect1', 'suspect2', 'piece', 'arme']),
-            ("{} est suspect car il était la derniere personne vue avec {}", ['suspect', 'victime']),
-            ("{} est suspect car il ne peut pas expliquer pourquoi il était dans le {} où {} est mort", ['suspect', 'piece', 'victime']),
-        ]
-
-        #for rule, placeholders in deduction_rules:
-        #    self.inference_engine.add_clause(self.to_fol(rule, 'grammars/deduction_rules.fcfg'))

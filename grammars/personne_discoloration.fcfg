@@ -6,7 +6,7 @@ N[SEM=?np] -> Nprop[SEM=?np]
 V -> 'a'
 Det -> 'une'
 P -> 'au'
-Ndiscoloration -> 'discoloration'
+Ndiscoloration -> 'discoloration' | 'discolorations'
 Nvisage -> 'visage'
 
 Nprop[SEM=<Moutarde>] -> 'Moutarde'
