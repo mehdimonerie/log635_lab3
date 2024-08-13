@@ -1,0 +1,18 @@
+%start S
+
+S[SEM=<MarqueCou(?vp)>] -> VP[SEM=?vp]
+VP[SEM=?n] -> N[SEM=?n] V Det Neclats P P2 Ncorps
+N[SEM=?np] -> Nprop[SEM=?np]
+V -> 'a'
+Det -> 'une'
+P -> 'a'
+P2 -> 'la'
+Neclats -> 'blessure'
+Ncorps -> 'poitrine'
+
+Nprop[SEM=<Moutarde>] -> 'Moutarde'
+Nprop[SEM=<Rose>] -> 'Rose'
+Nprop[SEM=<Violet>] -> 'Violet'
+Nprop[SEM=<Olive>] -> 'Olive'
+Nprop[SEM=<Leblanc>] -> 'Leblanc'
+Nprop[SEM=<Pervenche>] -> 'Pervenche'

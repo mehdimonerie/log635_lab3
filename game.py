@@ -17,7 +17,7 @@ def generate_virtual_board():
     # Sélectionner le coupable, la victime, l'arme et la salle du meurtre
     coupable = personnages.pop(random.randint(0, len(personnages) - 1))
     victime = personnages.pop(random.randint(0, len(personnages) - 1))
-    arme_crime = armes.pop(random.randint(0, len(armes) - 1))
+    arme_crime = armes[random.randint(0, len(armes) - 1)]
     salle_meurtre = random.choice(pieces)
 
     # Sélectionner une piece différente pour le coupable
@@ -36,9 +36,9 @@ def generate_virtual_board():
 
     for piece in pieces:
         if piece == salle_meurtre:
-            # La salle du meurtre doit contenir la victime et l'arme du crime
+            # La salle du meurtre doit contenir la victime 
             personnage = victime
-            arme = arme_crime
+            arme = armes.pop() if armes else None
         elif piece == salle_coupable:
             # Placer le coupable dans une piece différente
             personnage = coupable

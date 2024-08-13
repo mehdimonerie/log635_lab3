@@ -57,7 +57,12 @@ class InferenceEngine:
 
         # paramètre 1 : personne
         # p. ex.: Mustard a des marques au cou
-        self.body_mark_clause = 'MarqueCou({})'
+        self.body_mark_clauses = ['MarqueCou({})',
+        'TrouBalle({})',
+        'DebrisVitre({})',
+        'BlessureTranchante({})',
+        'Discoloration({})',
+        'TrouPetit({})']
 
         # paramètre 1 : piece; paramètre 2 : piece
         self.room_different_clause = 'PieceDifferente({},{})'
@@ -105,26 +110,29 @@ class InferenceEngine:
         self.clauses.append(expr('EstMort(x) & Personne_Piece(x,y) ==> PieceCrime(y)'))
 
         # Determiner l'arme du crime
-        self.clauses.append(expr('PieceCrime(x) & Arme(y) & Arme_Piece(y, x) ==> ArmeCrime(y)'))
         self.clauses.append(expr("EstMort(x) & MarqueCou(x) ==> ArmeCrime(Corde)"))
+        self.clauses.append(expr("EstMort(x) & TrouBalle(x) ==> ArmeCrime(Couteau)"))
+        self.clauses.append(expr("EstMort(x) & DebrisVitre(x) ==> ArmeCrime(Chandelier)"))
+        self.clauses.append(expr("EstMort(x) & BlessureTranchante(x) ==> ArmeCrime(Couteau)"))
+        self.clauses.append(expr("EstMort(x) & Discoloration(x) ==> ArmeCrime(Poison)"))
+        self.clauses.append(expr("EstMort(x) & TrouPetit(x) ==> ArmeCrime(Stylet)"))
 
         # Si la personne est morte alors elle est la victime et ce n'est pas un suicide
         self.clauses.append(expr('EstMort(x) ==> Victime(x)'))
-
         # Si la personne est morte alors elle est innocente et ce n'est pas un suicide
         self.clauses.append(expr('EstMort(x) ==> Innocent(x)'))
 
-        # Si la personne est vivante et était dans une pièce
-        # qui ne contient pas l'arme du crime, alors elle est innocente
-        self.clauses.append(expr(
-            'EstVivant(p) & UneHeureApresCrime(h1) & Personne_Piece_Heure(p,r2,h1) & PieceCrime(r1)'
-            ' & PieceDifferente(r1,r2) & ArmeCrime(a1) & Arme_Piece(a2,r2) & ArmeDifferente(a1,a2) ==> Innocent(p)'))
 
-        # Si la personne se trouvait dans une piece qui contient l'arme
-        # qui a tué la victime une heure après le meurtre alors elle est suspecte
+        # Si la personne est vivante et était dans une autre pièce lors du meutre
+        # alors elle est innocente
         self.clauses.append(expr(
-            'EstVivant(p) & UneHeureApresCrime(h1) & Personne_Piece_Heure(p,r2,h1) & PieceCrime(r1)'
-            ' & PieceDifferente(r1,r2) & ArmeCrime(a) & Arme_Piece(a,r2) ==> Suspect(p)'))
+            'EstVivant(p) & Personne_Piece_Heure(p,r2,h1) & PieceCrime(r1)'
+            ' & PieceDifferente(r1,r2) & HeureCrime(h1) ==> Innocent(p)'))
+
+        # Si la personne etait dans la piece de meurtre lors du meurtre, alors elle est suspecte
+        self.clauses.append(expr(
+            'EstVivant(p) & Personne_Piece_Heure(p,r1,h1) & PieceCrime(r1)'
+            ' & HeureCrime(h1) ==> Suspect(p)'))
 
     # Ajouter des clauses, c'est-à-dire des faits, à la base de connaissances
     def add_clause(self, clause_string):
