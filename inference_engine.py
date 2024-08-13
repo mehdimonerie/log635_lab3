@@ -194,3 +194,15 @@ class InferenceEngine:
             if not res.__contains__(elt[x]):
                 res.append(elt[x])
         return res
+    
+    # Demander à la base de connaissance si elle a résout le crime
+    def get_is_crime_solved(self):
+        suspect = self.get_suspect()
+        victim = self.get_victim()
+        weapon = self.get_crime_weapon()
+        room = self.get_crime_room()
+        hour = self.get_crime_hour()
+        if not suspect or not victim or not weapon or not room or not hour :
+            return False
+        else :
+            return True

@@ -1,33 +1,33 @@
 {
-    "salle_depart": "cuisine",
-    "coupable": "Rose",
-    "victime": "Pervenche",
-    "arme_crime": "stylet",
-    "salle_meurtre": "garage",
+    "salle_depart": "toilette",
+    "coupable": "Moutarde",
+    "victime": "Leblanc",
+    "arme_crime": "corde",
+    "salle_meurtre": "bureau",
     "pieces": {
-        "cuisine": {
-            "personnage": "Moutarde",
-            "arme": "revolver"
-        },
         "toilette": {
             "personnage": "Rose",
-            "arme": "chandelier"
-        },
-        "bibliotheque": {
-            "personnage": "Olive",
-            "arme": "corde"
-        },
-        "garage": {
-            "personnage": "Pervenche",
             "arme": "stylet"
         },
         "bureau": {
-            "personnage": "Violet",
+            "personnage": "Leblanc",
             "arme": "couteau"
         },
-        "salon": {
-            "personnage": "Leblanc",
+        "cuisine": {
+            "personnage": "Pervenche",
             "arme": "poison"
+        },
+        "salon": {
+            "personnage": "Violet",
+            "arme": "revolver"
+        },
+        "garage": {
+            "personnage": "Moutarde",
+            "arme": "corde"
+        },
+        "bibliotheque": {
+            "personnage": "Olive",
+            "arme": "chandelier"
         }
     }
 }

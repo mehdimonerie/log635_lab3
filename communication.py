@@ -48,12 +48,25 @@ class RandomInteraction:
                 outfile.write(response + '\n')
                 print("Agent: " + response)
                 speak(response)
+                if(response == "Je n'ai toujours pas assez d'informations pour résoudre ce crime") :
+                    questionType = self.board.askQuestion(self.agent)
+                    if questionType == "yes/no":
+                        self.yesno_interaction()
+                    elif questionType == "number":
+                        self.terminal_interaction()
     
     def terminal_interaction(self):
         print("Terminal interaction")
         user_input = input()
         response = self.agent.process_input(user_input)
         print("Agent: " + response)
+        if(response == "Je n'ai toujours pas assez d'informations pour résoudre ce crime") :
+            questionType = self.board.askQuestion(self.agent)
+            if questionType == "yes/no":
+                self.yesno_interaction()
+            elif questionType == "number":
+                self.terminal_interaction()
+                
     
     def speech_interaction(self):
         print("Speech interaction")
@@ -65,6 +78,12 @@ class RandomInteraction:
                 response = self.agent.process_input(user_input)
                 print("Agent: " + response)
                 speak(response)
+                if(response == "Je n'ai toujours pas assez d'informations pour résoudre ce crime") :
+                    questionType = self.board.askQuestion(self.agent)
+                    if questionType == "yes/no":
+                        self.yesno_interaction()
+                    elif questionType == "number":
+                        self.terminal_interaction()
             except sr.UnknownValueError:
                 print("Je n'ai pas compris. Réessayez.")
                 speak("Je n'ai pas compris. Réessayez.")
@@ -100,23 +119,79 @@ class RandomInteraction:
                 break
             elif key == '\x1b[A':  # Fleche haut
                 self.board.go_to_first_room(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == 'w\n':  # Fleche haut sur windows W
                 self.board.go_to_first_room(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == '\x1b[B':  # Fleche bas
                 self.board.go_to_last_room(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == 's\n':  # Fleche bas sur Windows S
                 self.board.go_to_last_room(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == '\x1b[D':  # Fleche gauche
                 self.board.deplacer_gauche(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == 'a\n':  # Fleche gauche sur windows A
                 self.board.deplacer_gauche(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()                
             elif key == '\x1b[C':  # Fleche droite
                 self.board.deplacer_droite(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()
             elif key == 'd\n':  # Fleche droite sur windows D
                 self.board.deplacer_droite(self.agent)
-            elif key == '1\n': # Touche 1
-                self.board.yes_answer(self.agent)
+                questionType = self.board.askQuestion(self.agent)
+                if questionType == "yes/no":
+                    self.yesno_interaction()
+                elif questionType == "number":
+                    self.terminal_interaction()
+            else:
+                print("Touche non reconnue.")
+
+    def yesno_interaction(self):
+        print("Yes/No interaction")
+        print("Utilisez 1 ou 2 pour oui/non")
+        while True:
+            key = self.get_key()
+            if key == '1\n': # Touche 1
+                response = self.board.yes_answer(self.agent)
+                if(response == "Je n'ai toujours pas assez d'informations pour résoudre ce crime") :
+                    questionType = self.board.askQuestion(self.agent)
+                    if questionType == "yes/no":
+                        self.yesno_interaction()
+                    elif questionType == "number":
+                        self.terminal_interaction()
+                break
             elif key == '2\n': # Touche 2
                 self.board.no_answer(self.agent)
+                break
             else:
                 print("Touche non reconnue.")

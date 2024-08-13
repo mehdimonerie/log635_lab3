@@ -5,6 +5,17 @@ class Agent:
     def __init__(self, inference_engine):
         self.inference_engine = inference_engine
         self.state_board = self.load_state_board()
+        self.askedClauses = []
+        self.currentQuestion = None
+        self.currentQuestionResponseType = None
+        self.weaponMarks = [
+            { "question": "La victime a tu des marques au cou ?", "clause" : self.inference_engine.body_mark_clauses[0]},
+            { "question": "La victime a tu des trous à la poitrine ?", "clause" : self.inference_engine.body_mark_clauses[1]},
+            { "question": "La victime a tu des éclats au corps ?", "clause" : self.inference_engine.body_mark_clauses[2]},
+            { "question": "La victime a tu des blessures à la poitrine ?", "clause" : self.inference_engine.body_mark_clauses[3]},
+            { "question": "La victime a tu de la discoloration au visage ?", "clause" : self.inference_engine.body_mark_clauses[4]},
+            { "question": "La victime a tu un trou au crane ?", "clause" : self.inference_engine.body_mark_clauses[5]},
+        ]
 
     def load_state_board(self):
         with open('data/state_board.json', 'r') as file:
@@ -53,10 +64,14 @@ class Agent:
             return "L'entrée n'est pas reconnue."
         
         self.inference_engine.add_clause(self.to_fol([input_text], grammar))
-        self.deduce_new_facts()
-        suspect = self.inference_engine.get_suspect()
-        if(suspect): 
-            return f"Le coupable est: {suspect}"
+        crimeSolved = self.inference_engine.get_is_crime_solved()
+        if(crimeSolved):
+            suspect = self.inference_engine.get_suspect()
+            victim = self.inference_engine.get_victim()
+            weapon = self.inference_engine.get_crime_weapon()
+            room = self.inference_engine.get_crime_room()
+            heure = self.inference_engine.get_crime_hour()
+            return f"{suspect} à tuer {victim} avec {weapon} dans la piece {room} à {heure}"
         else:
             return "Je n'ai toujours pas assez d'informations pour résoudre ce crime"
 
@@ -75,18 +90,63 @@ class Agent:
         return res
     
 
-    def deduce_new_facts(self):
-        deduction_rules = [ #Pas tous utile, phrase que l'engine pourrait renvoyer
-            ("{} avait acces a {} dans le {} à {}h", ['personnage', 'arme', 'piece', 'heure']),
-            ("{} était dans le même lieu que {} à {}h", ['suspect', 'victime', 'heure']),
-            ("{} est suspect car il était dans {} quand {} est mort", ['suspect', 'piece', 'victime']),
-            ("{} pouvait utiliser {} dans le {}", ['personnage', 'arme', 'piece']),
-            ("{} est suspect car {} a été tué avec {}", ['suspect', 'victime', 'arme']),
-            ("{} est suspect car il était dans le {} peu avant ou apres la mort de {}", ['suspect', 'piece', 'victime']),
-            ("{} et {} pourraient être complices car ils étaient dans le {} avec {}", ['suspect1', 'suspect2', 'piece', 'arme']),
-            ("{} est suspect car il était la derniere personne vue avec {}", ['suspect', 'victime']),
-            ("{} est suspect car il ne peut pas expliquer pourquoi il était dans le {} où {} est mort", ['suspect', 'piece', 'victime']),
-        ]
+    def getQuestion(self, room, character): 
+        self.currentQuestion = None
+        self.currentQuestionResponseType = None
+        victim = self.inference_engine.get_victim()
+        crime_room = self.inference_engine.get_crime_room()
+        crime_hour = self.inference_engine.get_crime_hour()
+        if not victim:
+            return False
+        elif victim == character : 
+            if not crime_hour: 
+                self.currentQuestion = "A quel heure la victime est elle morte ?"
+                self.currentQuestionResponseType = self.inference_engine.crime_hour_clause
+                return "number"
+            if not self.inference_engine.get_crime_weapon():
+                for (question, clause) in self.weaponMarks :
+                    personClause = clause.format(f"{victim}")
+                    if not self.askedClauses.__contains__(personClause):
+                        self.currentQuestion = question
+                        self.currentQuestionResponseType = personClause
+                        return "yes/no"
+        elif not crime_hour or not crime_room:
+            return False
+        
+        if not self.inference_engine.get_innocent().__contains__(character):
+            person_room_hour_clause = self.inference_engine.person_room_hour_clause.format(character, crime_room, crime_hour)
+            if not self.askedClauses.__contains__(person_room_hour_clause ):
+                self.currentQuestion = f"{character}, était tu dans la pièce {crime_room} à {crime_hour}h ?"
+                self.currentQuestionResponseType = person_room_hour_clause
+                return "yes/no"
+        
+        return False
 
-        #for rule, placeholders in deduction_rules:
-        #    self.inference_engine.add_clause(self.to_fol(rule, 'grammars/deduction_rules.fcfg'))
+
+    def answerYes(self): 
+        self.inference_engine.add_clause(f"{self.currentQuestionResponseType}")
+        # ajouter à la liste de questions déjà posés et retirer la currentQuestion
+        self.askedClauses.append(self.currentQuestionResponseType)
+        self.currentQuestion = None
+        self.currentQuestionResponseType = None
+        crimeSolved = self.inference_engine.get_is_crime_solved()
+        if(crimeSolved):
+            suspect = self.inference_engine.get_suspect()
+            victim = self.inference_engine.get_victim()
+            weapon = self.inference_engine.get_crime_weapon()
+            room = self.inference_engine.get_crime_room()
+            heure = self.inference_engine.get_crime_hour()
+            return f"{suspect} à tuer {victim} avec {weapon} dans la piece {room} à {heure}"
+        else:
+            return "Je n'ai toujours pas assez d'informations pour résoudre ce crime"
+
+    def answerNo(self): 
+        # ajouter à la liste de questions déjà posés et retirer la currentQuestion
+        self.askedClauses.append(self.currentQuestionResponseType)
+        self.currentQuestion = None
+        self.currentQuestionResponseType = None
+
+    def answerNumber(self, number): 
+        self.inference_engine.add_clause(f"{self.currentQuestionResponseType.format(number)}")
+        self.currentQuestion = None
+        self.currentQuestionResponseType = None

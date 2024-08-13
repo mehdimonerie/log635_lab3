@@ -6,13 +6,26 @@ class Board:
         self.position_actuelle = game_data["salle_depart"]  # Commencer dans la piece de départ
         self.personnages = {piece: data["personnage"] for piece, data in self.pieces.items()}
         self.armes = {piece: data["arme"] for piece, data in self.pieces.items()}
+        self.victime = game_data["victime"]
 
     def afficher_position(self, agent):
+        print(self.victime)
         print(f"Vous êtes actuellement dans {self.position_actuelle}. Il y a {self.personnages[self.position_actuelle]} et {self.armes[self.position_actuelle]}.")
+        if self.personnages[self.position_actuelle] == self.victime:
+            retourMort = agent.process_input(f"{self.victime} est mort")
+            print(retourMort)
         retourPersonnage = agent.process_input(f"{self.personnages[self.position_actuelle]} est dans la {self.position_actuelle}")
         print(retourPersonnage)
         retourArme = agent.process_input(f"Le {self.armes[self.position_actuelle]} est dans la {self.position_actuelle}")
         print(retourArme)
+        
+
+    def askQuestion(self, agent): 
+        questionType = agent.getQuestion(self.position_actuelle, self.personnages[self.position_actuelle])
+        if not questionType:
+            return False
+        else:
+            return questionType
 
 
     def go_to_first_room(self, agent):
@@ -40,11 +53,10 @@ class Board:
             print("Vous êtes déjà dans la premiere piece.")
 
     def yes_answer(self, agent):
-        #todo: implement
-        print("Oui")
+        return agent.answerYes()
     
     def no_answer(self, agent):
-        #todo: implement
+        agent.answerNo()
         print("Non")
 
     @staticmethod
