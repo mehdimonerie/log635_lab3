@@ -15,7 +15,7 @@ class RandomInteraction:
         
     def start(self):
         while True:
-            mode = random.choice(['keyboard'])
+            mode = random.choice(['text', 'terminal', 'speech', 'keyboard'])
             print(f"Mode d'entrée choisi: {mode}")
             
             if mode == 'text':
