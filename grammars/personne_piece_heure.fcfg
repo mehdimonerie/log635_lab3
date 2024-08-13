@@ -15,7 +15,7 @@ N[SEM=<Salon>] -> 'salon'
 N[SEM=<Bureau>] -> 'bureau'
 N[SEM=<Garage>] -> 'garage'
 N[SEM=<Hall>] -> 'hall'
-N[SEM=<Bibliothèque>] -> 'bibliothèque'
+N[SEM=<Bibliotheque>] -> 'bibliotheque'
 N[SEM=<Toilette>] -> 'toilette'
 
 Nprop[SEM=<Moutarde>] -> 'Moutarde'

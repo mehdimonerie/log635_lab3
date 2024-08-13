@@ -1,5 +1,5 @@
 import os
-import sys , tty
+import sys# , tty
 import random
 import time
 from board import Board
@@ -78,9 +78,9 @@ class RandomInteraction:
         #old_settings = termios.tcgetattr(fd)
         try:
             # tty.setraw(sys.stdin.fileno())
-            ch1 = sys.stdin.read(1)  # Lire le premier caractère
+            ch1 = sys.stdin.read(1)  # Lire le premier caractere
             
-            if ch1 == '\x1b':  # C'est le début d'une séquence d'échappement (flèche directionnelle)
+            if ch1 == '\x1b':  # C'est le début d'une séquence d'échappement (fleche directionnelle)
                 ch2 = sys.stdin.read(1)
                 ch3 = sys.stdin.read(1)
                 return ch1 + ch2 + ch3
@@ -98,21 +98,21 @@ class RandomInteraction:
             if key == 'q\n':
                 print("Vous avez quitté l'interaction au clavier.")
                 break
-            elif key == '\x1b[A':  # Flèche haut
+            elif key == '\x1b[A':  # Fleche haut
                 self.board.go_to_first_room()
-            elif key == 'w\n':  # Flèche haut sur windows W
+            elif key == 'w\n':  # Fleche haut sur windows W
                 self.board.go_to_first_room()
-            elif key == '\x1b[B':  # Flèche bas
+            elif key == '\x1b[B':  # Fleche bas
                 self.board.go_to_last_room()
-            elif key == 's\n':  # Flèche bas sur Windows S
+            elif key == 's\n':  # Fleche bas sur Windows S
                 self.board.go_to_last_room()
-            elif key == '\x1b[D':  # Flèche gauche
+            elif key == '\x1b[D':  # Fleche gauche
                 self.board.deplacer_gauche()
-            elif key == 'a\n':  # Flèche gauche sur windows A
+            elif key == 'a\n':  # Fleche gauche sur windows A
                 self.board.deplacer_gauche()
-            elif key == '\x1b[C':  # Flèche droite
+            elif key == '\x1b[C':  # Fleche droite
                 self.board.deplacer_droite()
-            elif key == 'd\n':  # Flèche droite sur windows D
+            elif key == 'd\n':  # Fleche droite sur windows D
                 self.board.deplacer_droite()
             elif key == '1\n': # Touche 1
                 self.board.yes_answer()

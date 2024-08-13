@@ -2,3 +2,4 @@ SpeechRecognition
 pyaudio
 gtts
 playsound
+nltk

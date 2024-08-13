@@ -18,12 +18,12 @@ class Agent:
         return "Démarrage de l'enquête..."
     
     def process_input(self, input_text):
-        pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
+        pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
 
         # Detect which grammar to use based on input
-        pieces = ["cuisine", "salon", "bureau", "bibliothèque", "toilette", "garage"]
+        pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
 
@@ -76,14 +76,14 @@ class Agent:
 
     def deduce_new_facts(self):
         deduction_rules = [ #Pas tous utile, phrase que l'engine pourrait renvoyer
-            ("{} avait accès à {} dans le {} à {}h", ['personnage', 'arme', 'piece', 'heure']),
+            ("{} avait acces a {} dans le {} à {}h", ['personnage', 'arme', 'piece', 'heure']),
             ("{} était dans le même lieu que {} à {}h", ['suspect', 'victime', 'heure']),
             ("{} est suspect car il était dans {} quand {} est mort", ['suspect', 'piece', 'victime']),
             ("{} pouvait utiliser {} dans le {}", ['personnage', 'arme', 'piece']),
             ("{} est suspect car {} a été tué avec {}", ['suspect', 'victime', 'arme']),
-            ("{} est suspect car il était dans le {} peu avant ou après la mort de {}", ['suspect', 'piece', 'victime']),
+            ("{} est suspect car il était dans le {} peu avant ou apres la mort de {}", ['suspect', 'piece', 'victime']),
             ("{} et {} pourraient être complices car ils étaient dans le {} avec {}", ['suspect1', 'suspect2', 'piece', 'arme']),
-            ("{} est suspect car il était la dernière personne vue avec {}", ['suspect', 'victime']),
+            ("{} est suspect car il était la derniere personne vue avec {}", ['suspect', 'victime']),
             ("{} est suspect car il ne peut pas expliquer pourquoi il était dans le {} où {} est mort", ['suspect', 'piece', 'victime']),
         ]
 

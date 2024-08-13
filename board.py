@@ -3,7 +3,7 @@ import json
 class Board:
     def __init__(self, game_data):
         self.pieces = game_data["pieces"]
-        self.position_actuelle = game_data["salle_depart"]  # Commencer dans la pièce de départ
+        self.position_actuelle = game_data["salle_depart"]  # Commencer dans la piece de départ
         self.personnages = {piece: data["personnage"] for piece, data in self.pieces.items()}
         self.armes = {piece: data["arme"] for piece, data in self.pieces.items()}
 
@@ -24,7 +24,7 @@ class Board:
             self.position_actuelle = list(self.pieces.keys())[current_index + 1]
             self.afficher_position()
         else:
-            print("Vous êtes dans la dernière pièce.")
+            print("Vous êtes déjà dans la derniere piece.")
 
     def deplacer_gauche(self):
         current_index = list(self.pieces.keys()).index(self.position_actuelle)
@@ -32,7 +32,7 @@ class Board:
             self.position_actuelle = list(self.pieces.keys())[current_index - 1]
             self.afficher_position()
         else:
-            print("Vous êtes dans la première pièce.")
+            print("Vous êtes déjà dans la premiere piece.")
 
     def yes_answer(self):
         #todo: implement
