@@ -99,24 +99,24 @@ class RandomInteraction:
                 print("Vous avez quitté l'interaction au clavier.")
                 break
             elif key == '\x1b[A':  # Fleche haut
-                self.board.go_to_first_room()
+                self.board.go_to_first_room(self.agent)
             elif key == 'w\n':  # Fleche haut sur windows W
-                self.board.go_to_first_room()
+                self.board.go_to_first_room(self.agent)
             elif key == '\x1b[B':  # Fleche bas
-                self.board.go_to_last_room()
+                self.board.go_to_last_room(self.agent)
             elif key == 's\n':  # Fleche bas sur Windows S
-                self.board.go_to_last_room()
+                self.board.go_to_last_room(self.agent)
             elif key == '\x1b[D':  # Fleche gauche
-                self.board.deplacer_gauche()
+                self.board.deplacer_gauche(self.agent)
             elif key == 'a\n':  # Fleche gauche sur windows A
-                self.board.deplacer_gauche()
+                self.board.deplacer_gauche(self.agent)
             elif key == '\x1b[C':  # Fleche droite
-                self.board.deplacer_droite()
+                self.board.deplacer_droite(self.agent)
             elif key == 'd\n':  # Fleche droite sur windows D
-                self.board.deplacer_droite()
+                self.board.deplacer_droite(self.agent)
             elif key == '1\n': # Touche 1
-                self.board.yes_answer()
+                self.board.yes_answer(self.agent)
             elif key == '2\n': # Touche 2
-                self.board.no_answer()
+                self.board.no_answer(self.agent)
             else:
                 print("Touche non reconnue.")

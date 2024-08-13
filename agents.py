@@ -18,6 +18,7 @@ class Agent:
         return "Démarrage de l'enquête..."
     
     def process_input(self, input_text):
+        print(input_text)
         pieces = ["cuisine", "salon", "bureau", "bibliotheque", "toilette", "garage"]
         personnages = ["Moutarde", "Rose", "Violet", "Olive", "Leblanc", "Pervenche"]
         armes = ["couteau", "chandelier", "revolver", "corde", "poison", "stylet"]
@@ -50,9 +51,14 @@ class Agent:
             grammar = 'grammars/personne_marque.fcfg'
         else:
             return "L'entrée n'est pas reconnue."
-
+        
         self.inference_engine.add_clause(self.to_fol([input_text], grammar))
         self.deduce_new_facts()
+        suspect = self.inference_engine.get_suspect()
+        if(suspect): 
+            return f"Le coupable est: {suspect}"
+        else:
+            return "Je n'ai toujours pas assez d'informations pour résoudre ce crime"
 
 
     def to_fol(self, fact, grammar):
@@ -82,5 +88,5 @@ class Agent:
             ("{} est suspect car il ne peut pas expliquer pourquoi il était dans le {} où {} est mort", ['suspect', 'piece', 'victime']),
         ]
 
-        for rule, placeholders in deduction_rules:
-            self.inference_engine.add_clause(self.to_fol(rule, 'grammars/deduction_rules.fcfg'))
+        #for rule, placeholders in deduction_rules:
+        #    self.inference_engine.add_clause(self.to_fol(rule, 'grammars/deduction_rules.fcfg'))
